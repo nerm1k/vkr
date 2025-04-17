@@ -8,7 +8,9 @@
 }
 
 body {
-    min-height: 100vh;
+    font-family: var(--fontFamily);
+    background-color: var(--backgroundColor);
+    color: var(--color);
 }
 
 img {
@@ -23,4 +25,8 @@ a {
 
 ul {
     list-style: none;
+}
+
+main {
+    min-height: 100vh;
 }

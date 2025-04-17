@@ -1,0 +1,61 @@
+@use '../../mixins.scss';
+
+.header {
+    position: sticky;
+    top: 0;
+    height: 60px;
+    background-color: var(--headerBackgroundColor);
+    border-bottom: 1px solid var(--headerBorderBottomColor);
+    z-index: 1000;
+
+    .container {
+        max-width: 1140px;
+        min-width: 320px;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+
+        @media screen and (max-width: 1175px){
+            margin: 0 10px;
+        }
+    }
+
+    &__logo {
+        max-width: 45px;
+    }
+
+    &__nav {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        
+        ul {
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            li {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                @include mixins.transition(background-color, 0.3s);
+                border: 1px solid transparent;
+                user-select: none;
+
+                &:hover {
+                    background-color: var(--headerNavHoverBackgroundColor);
+                    border-bottom: 1px solid var(--grey);
+                }
+
+                a {
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 15px;
+                }
+            }
+        }
+    }
+}
