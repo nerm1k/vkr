@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './pages/Layout/Layout'
+import MainPage from './pages/MainPage/MainPage'
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<Layout />}>
-            {/* <Route path="/" element={<MainPage />} /> */}
+            <Route path="/" element={<MainPage />} />
           </Route>
           {/* <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />

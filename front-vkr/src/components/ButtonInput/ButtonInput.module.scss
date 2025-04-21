@@ -1,0 +1,15 @@
+@use '../../mixins.scss';
+
+.button {
+    width: 170px;
+    padding: 10px 0;
+    font-size: 16px;
+    color: var(--white);
+    background-color: var(--mainPageMethodButtonBackgroundColorActive);
+    border: 1px solid var(--mainPageMethodButtonBorderColor);
+    @include mixins.border-radius(4px);
+
+    &:hover {
+        background-color: var(--mainPageMethodButtonBackgroundColorActiveHover);
+    }
+}

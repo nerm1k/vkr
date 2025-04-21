@@ -1,0 +1,37 @@
+@use '../../mixins.scss';
+
+.fileInputWrapper {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid var(--mainPageMethodButtonBorderColor);
+    @include mixins.border-radius(4px);
+    overflow: hidden;
+}
+  
+  .hiddenInput {
+    display: none;
+  }
+  
+  .fileName {
+    padding: 8px 10px;
+    background: var(--white);
+    color: var(--color70);
+    font-size: 16px;
+    opacity: 0.7;
+    min-width: 300px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .browseButton {
+    padding: 8px 16px;
+    background: #5a7fd4;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+  
+    &:hover {
+        background-color: var(--mainPageMethodButtonBackgroundColorActiveHover);
+    }
+  }

@@ -6,6 +6,8 @@
     --fontFamily: "Inter", sans-serif;
     --backgroundColor: #f0f0f0;
     --color: #333333;
+    --color90: #333333e1;
+    --color70: #333333b4;
 
     --headerBackgroundColor: #fff;
     --headerBorderBottomColor: #b3b3b380;
@@ -13,4 +15,9 @@
 
     --footerBackgroundColor: #1F2225;
     --footerColor: #BBCDD6;
+
+    --mainPageMethodButtonBorderColor: #cbd5e0;
+    --mainPageMethodButtonBackgroundColorActive: #1273d4;
+    --mainPageMethodButtonBackgroundColorHover: #edf2f7;
+    --mainPageMethodButtonBackgroundColorActiveHover: #4c51bf;
 }

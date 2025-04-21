@@ -14,8 +14,14 @@ const Header = () => {
                     </Link>
                 </div>
                 <nav className={styles.header__nav}>
+                    <ul>
+                        <li>
+                            <Link to='/feed'>
+                                Все публикации
+                            </Link>
+                        </li>
                         {!isAuthenticated && (
-                            <ul>
+                            <>
                                 <li>
                                     <Link to='/login'>
                                         Войти
@@ -26,10 +32,10 @@ const Header = () => {
                                         Регистрация
                                     </Link>
                                 </li>
-                            </ul>
+                            </>
                         )}
                         {isAuthenticated && (
-                            <ul>
+                            <>
                                 <li>
                                     <Link to={`/user/${authenticatedUser.username.toLowerCase()}`}>
                                         Мои публикации
@@ -40,8 +46,9 @@ const Header = () => {
                                         Выйти
                                     </Link>
                                 </li>    
-                            </ul>
+                            </>
                         )}
+                    </ul>
                 </nav>
             </div>
         </header>
