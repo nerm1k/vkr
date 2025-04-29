@@ -11,4 +11,9 @@ export default class ModelService {
         const models = await this.modelModel.getAllModels();
         return models;
     }
+
+    async rateModelByModelId(modelId: number, rate: 'like' | 'dislike') {
+        const isUpdated = await this.modelModel.rateModelByModelId(modelId, rate);
+        return isUpdated;
+    }
 }
