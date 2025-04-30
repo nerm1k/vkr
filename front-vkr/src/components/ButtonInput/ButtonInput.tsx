@@ -1,8 +1,13 @@
 import styles from './ButtonInput.module.scss'
 
-const ButtonInput = () => {
+interface Props {
+    onClick: () => void,
+    text: string
+}
+
+const ButtonInput = ({onClick, text}: Props) => {
     return (
-        <button className={styles.button}>Загрузить</button>
+        <button className={styles.button} onClick={onClick}>{text}</button>
     )
 }
 

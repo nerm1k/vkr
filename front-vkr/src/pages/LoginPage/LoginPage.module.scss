@@ -1,0 +1,123 @@
+
+@use '../../mixins.scss';
+
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: -webkit-linear-gradient(bottom, #0250c5, #d43f8d);
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: url('/images/bg-login.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .login {
+        width: 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 70px 50px 30px;
+        background-color: var(--white);
+        @include mixins.border-radius(3px);
+        z-index: 1;
+
+        &__title {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--loginTitleColor);
+            text-transform: uppercase;
+            margin-bottom: 50px;
+        }
+
+        &__error {
+            color: var(--errorRed);
+            margin-bottom: 10px;
+            align-self: start;
+        }
+        
+        &__username, &__password {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 14px;
+        }
+
+        &__remember {
+            display: flex;
+            align-items: center;
+            margin-right: auto;
+            margin-bottom: 30px;
+            
+            input {
+                display: grid;
+                place-content: center;
+                appearance: none;
+                background-color: var(--white);
+                margin: 0;
+                color: var(--loginColorMain);
+                width: 20px;
+                height: 20px;
+                border: 2px solid var(--loginColorMain);
+                @include mixins.border-radius(4px);
+                @include mixins.transform(translateX(2px));
+
+                &::before {
+                    content: "";
+                    width: 12px;
+                    height: 12px;
+                    @include mixins.transform(scale(0));
+                    @include mixins.transition(0.12s, ease-in-out);
+                    box-shadow: inset 16px 16px var(--loginColorMain);
+                    transform-origin: bottom left;
+                    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+                }
+
+                &:checked::before {
+                    @include mixins.transform(scale(1));
+                }
+            }
+
+            label {
+                margin-left: 10px;
+                color: var(--loginIconInputColor);
+            }
+        }
+
+        &__alternative {
+            margin-top: 100px;
+            color: var(--loginIconInputColor);
+
+            a {
+                color: inherit;
+                text-decoration: none;
+                border-bottom: 1px solid var(--loginIconInputColor);
+            }
+        }
+        &__button {
+            width: 100%;
+            height: 60px;
+            font-size: 16px;
+            color: var(--white);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background-color: var(--loginColorMain);
+            border: none;
+            @include mixins.border-radius(3px);
+        }
+    }
+}

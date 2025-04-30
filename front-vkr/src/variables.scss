@@ -1,7 +1,10 @@
 :root {
     --white: #fff;
     --black: #000;
+    --black40: #00000066;
     --grey:#b3b3b3;
+    --greyLight: #e6e6e6;
+    --errorRed: #ff0000;
 
     --fontFamily: "Inter", sans-serif;
     --backgroundColor: #f0f0f0;
@@ -20,4 +23,16 @@
     --mainPageMethodButtonBackgroundColorActive: #1273d4;
     --mainPageMethodButtonBackgroundColorHover: #edf2f7;
     --mainPageMethodButtonBackgroundColorActiveHover: #4c51bf;
+
+    --mainPagePredictionsColorWithTrash: #ff0000;
+    --mainPagePredictionsColorWithoutTrash: #009e0d;
+
+    --mainPageRateLikedBackgroundColor: #008f0c;
+    --mainPageRateDislikedBackgroundColor: #e20000;
+
+    --loginColorMain: #d33f8d;
+    --loginTitleColor: #333;
+    --loginPlaceholderColor: #acacac;
+    --loginIconInputColor: #999;
+    --loginInputColor: #686868;
 }
