@@ -1,0 +1,36 @@
+@use '../../mixins.scss';
+
+.rate {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    &__text {
+        margin-bottom: 6px;
+    }
+
+    &__like {
+        background-color: var(--white);
+        padding: 4px 25px;
+        border: 1px solid var(--mainPageMethodButtonBorderColor);
+        border-right: none;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+
+        &--liked {
+            background-color: var(--mainPageRateLikedBackgroundColor);
+        }
+    }
+
+    &__dislike {
+        background-color: var(--white);
+        padding: 4px 25px;
+        border: 1px solid var(--mainPageMethodButtonBorderColor);
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+        &--disliked {
+            background-color: var(--mainPageRateDislikedBackgroundColor);
+        }
+    }
+}
