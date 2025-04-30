@@ -31,4 +31,19 @@ export default class ModelPredictionController {
             res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({error})
         }
     }
+
+    publicModelPredictionById = async (req: Request, res: Response) => {
+        try {
+            const modelPredictionId  = req.params.modelPredictionId;
+            console.log(modelPredictionId)
+            const isUpdated = await this.modelPredictionService.publicModelPredictionById(+modelPredictionId);
+            if (isUpdated) {
+                res.status(HttpStatusCode.NO_CONTENT).json({message: '+'});
+            } else {
+                res.status(HttpStatusCode.BAD_REQUEST).json({message: 'Error'});
+            }
+        } catch (error: any) {
+            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({error})
+        }
+    }
 }

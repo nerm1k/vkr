@@ -16,4 +16,9 @@ export default class ModelPredictionService {
         const modelPrediction = await this.modelPredictionModel.createModelPrediction(modelId, userId, imageLink, confidence, overlap, averageConfidence, amountFullContainers, amountNotFullContainers, isPublic);
         return modelPrediction;
     }
+
+    async publicModelPredictionById(modelPredictionId: number) {
+        const isUpdated = await this.modelPredictionModel.publicModelPredictionById(modelPredictionId);
+        return isUpdated;
+    }
 }
