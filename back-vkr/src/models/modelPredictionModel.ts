@@ -13,13 +13,58 @@ interface ModelPrediction {
     amountFullContainers: number,
     amountNotFullContainers: number,
     isPublic: boolean,
-    createdAt: string,
-    updatedAt: string
+    createdAt: Date,
+    updatedAt: Date
 }
 
 export default class ModelPredictionModel {
     async getAllModelsPredictions() {
         const modelsPredictions = await pool('models_predictions').select('*');
+        return modelsPredictions;
+    }
+
+    async getAllPublicModelsPredictions() {
+        const publicModelPredictions: ModelPrediction[] = await pool('models_predictions')
+                                                                .select('model_prediction_id as modelPredictionId',
+                                                                    'model_id as modelId',
+                                                                    'models_predictions.user_id as userId',
+                                                                    'image_link as imageLink',
+                                                                    'confidence',
+                                                                    'overlap',
+                                                                    'average_confidence as averageConfidence',
+                                                                    'amount_full_containers as amountFullContainers',
+                                                                    'amount_not_full_containers as amountNotFullContainers',
+                                                                    'is_public as isPublic',
+                                                                    'models_predictions.created_at as createdAt',
+                                                                    'models_predictions.updated_at as updatedAt',
+                                                                    'username'
+                                                                )
+                                                                .where('is_public', '=', true)
+                                                                .leftJoin('users', 'models_predictions.user_id', 'users.user_id')
+                                                                .orderBy('models_predictions.created_at', 'desc');
+        return publicModelPredictions;
+    }
+
+    async getAllModelsPredictionsByUserId(userId: number) {
+        const modelsPredictions: ModelPrediction[] = await pool('models_predictions')
+                                                            .select('model_prediction_id as modelPredictionId',
+                                                                'model_id as modelId',
+                                                                'models_predictions.user_id as userId',
+                                                                'image_link as imageLink',
+                                                                'confidence',
+                                                                'overlap',
+                                                                'average_confidence as averageConfidence',
+                                                                'amount_full_containers as amountFullContainers',
+                                                                'amount_not_full_containers as amountNotFullContainers',
+                                                                'is_public as isPublic',
+                                                                'models_predictions.created_at as createdAt',
+                                                                'models_predictions.updated_at as updatedAt',
+                                                                'username'
+                                                            )
+                                                            .where('models_predictions.user_id', '=', userId)
+                                                            .where('is_public', '=', true)
+                                                            .leftJoin('users', 'models_predictions.user_id', 'users.user_id')
+                                                            .orderBy('models_predictions.created_at', 'desc');
         return modelsPredictions;
     }
 

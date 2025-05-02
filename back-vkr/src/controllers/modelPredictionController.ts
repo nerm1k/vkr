@@ -18,6 +18,25 @@ export default class ModelPredictionController {
         }
     };
 
+    getAllPublicModelPredictions = async (req: Request, res: Response) => {
+        try {
+            const publicModelsPredictions = await this.modelPredictionService.getAllPublicModelsPredictions();
+            res.status(HttpStatusCode.OK).json(publicModelsPredictions);
+        } catch (error) {
+            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ error });
+        }
+    }
+
+    getAllModelsPredictionsByUserId = async (req: Request, res: Response) => {
+        try {
+            const userId  = req.params.userId;
+            const modelsPredictions = await this.modelPredictionService.getAllModelsPredictionsByUserId(+userId);
+            res.status(HttpStatusCode.OK).json(modelsPredictions);
+        } catch (error) {
+            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ error });
+        }
+    }
+    
     createModelPrediction = async (req: Request, res: Response) => {
         try {
             const { modelId, userId, imageLink, confidence, overlap, averageConfidence, amountFullContainers, amountNotFullContainers, isPublic } = req.body;
