@@ -17,8 +17,8 @@ export default class ModelPredictionService {
         return publicModelsPredictions;
     }
 
-    async getAllModelsPredictionsByUserId(userId: number) {
-        const modelsPredictions = await this.modelPredictionModel.getAllModelsPredictionsByUserId(userId);
+    async getAllModelsPredictionsByUsername(username: string) {
+        const modelsPredictions = await this.modelPredictionModel.getAllModelsPredictionsByUsername(username);
         return modelsPredictions;
     }
 

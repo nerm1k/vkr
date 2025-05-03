@@ -27,10 +27,10 @@ export default class ModelPredictionController {
         }
     }
 
-    getAllModelsPredictionsByUserId = async (req: Request, res: Response) => {
+    getAllModelsPredictionsByUsername = async (req: Request, res: Response) => {
         try {
-            const userId  = req.params.userId;
-            const modelsPredictions = await this.modelPredictionService.getAllModelsPredictionsByUserId(+userId);
+            const username  = req.params.username;
+            const modelsPredictions = await this.modelPredictionService.getAllModelsPredictionsByUsername(username);
             res.status(HttpStatusCode.OK).json(modelsPredictions);
         } catch (error) {
             res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ error });

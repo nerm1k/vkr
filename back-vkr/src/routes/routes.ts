@@ -13,7 +13,7 @@ export const routes = (modelController: ModelController, modelPredictionControll
     router.put('/api/v1/models/:modelId/rate', modelController.rateModelByModelId);
 
     router.get('/api/v1/models-predictions/public', modelPredictionController.getAllPublicModelPredictions);
-    router.get('/api/v1/users/:userId/models-predictions', modelPredictionController.getAllModelsPredictionsByUserId);
+    router.get('/api/v1/users/:username/models-predictions', modelPredictionController.getAllModelsPredictionsByUsername);
     router.post('/api/v1/models-predictions', modelPredictionController.createModelPrediction);
     router.put('/api/v1/models-predictions/:modelPredictionId/public', modelPredictionController.publicModelPredictionById);
 
