@@ -1,0 +1,21 @@
+@use '../../mixins.scss';
+
+.user {
+    max-width: 600px;
+    margin: 30px auto;
+    font-size: 28px;
+    text-align: center;
+
+    .bold {
+        font-weight: 600;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 15px auto;
+    margin-top: 0;
+}

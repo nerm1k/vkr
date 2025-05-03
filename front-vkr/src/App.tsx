@@ -10,6 +10,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import LoginPage from './pages/LoginPage/LoginPage'
 import Logout from './components/Logout/Logout'
 import SignUpPage from './pages/SignUpPage/SignUpPage'
+import FeedPage from './pages/FeedPage/FeedPage'
+import UserPage from './pages/UserPage/UserPage'
 
 function App() {
   const queryClient = new QueryClient();
@@ -20,6 +22,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<MainPage />} />
+            <Route path="/feed" element={<FeedPage />} />
+            <Route path='/user/:username' element={<UserPage />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
