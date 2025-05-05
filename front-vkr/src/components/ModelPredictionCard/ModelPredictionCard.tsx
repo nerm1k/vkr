@@ -20,27 +20,46 @@ const ModelPredictionCard = ({prediction, hasLink}: Props) => {
                 }
                 , {formatDate(prediction.createdAt)}
             </div>
-            <div className={styles.prediction__image}>
-                <img src={prediction.imageLink} alt='Изображение предсказанных классов' referrerPolicy="no-referrer"/>
-            </div>
-            <div className={styles.prediction__item}>
-                Модель: <span className={styles.bold}>{prediction.model}</span>
-            </div>
-            <div className={styles.prediction__item}>
-                Уверенность: <span className={styles.bold}>{prediction.confidence}</span>
-            </div>
-            <div className={styles.prediction__item}>
-                Перекрытие: <span className={styles.bold}>{prediction.overlap}</span>
-            </div>
-            <div className={styles.prediction__item}>
-                Полных контейнеров: <span className={styles.bold}>{prediction.amountFullContainers}</span>
-            </div>
-            <div className={styles.prediction__item}>
-                Неполных контейнеров: <span className={styles.bold}>{prediction.amountNotFullContainers}</span>
-            </div>
-            <div className={styles.prediction__item}>
-                Средняя уверенность модели: <span className={styles.bold}>{prediction.averageConfidence.toFixed(2)}</span>
-            </div>
+            {prediction.imageLink ? (
+                <div className={styles.prediction__image}>
+                    <img src={prediction.imageLink} alt='Изображение предсказанных классов' referrerPolicy="no-referrer"/>
+                </div>
+            ) : (
+                <div className={styles.prediction__image}>
+                    <img src='/images/placeholder.png' alt='Плейсхолдер'/>
+                </div>
+            )}
+            
+            {prediction.model && (
+                <div className={styles.prediction__item}>
+                    Модель: <span className={styles.bold}>{prediction.model}</span>
+                </div>
+            )}
+            {typeof prediction.confidence  === 'number' && (
+                <div className={styles.prediction__item}>
+                    Уверенность: <span className={styles.bold}>{prediction.confidence}</span>
+                </div>
+            )}
+            {typeof prediction.overlap  === 'number'&& (
+                <div className={styles.prediction__item}>
+                    Перекрытие: <span className={styles.bold}>{prediction.overlap}</span>
+                </div>
+            )}
+            {typeof prediction.amountFullContainers === 'number' && (
+                <div className={styles.prediction__item}>
+                    Полных контейнеров: <span className={styles.bold}>{prediction.amountFullContainers}</span>
+                </div>
+            )}
+            {typeof prediction.amountNotFullContainers === 'number' && (
+                <div className={styles.prediction__item}>
+                    Неполных контейнеров: <span className={styles.bold}>{prediction.amountNotFullContainers}</span>
+                </div>
+            )}
+            {typeof prediction.averageConfidence === 'number' && (
+                <div className={styles.prediction__item}>
+                    Средняя уверенность модели: <span className={styles.bold}>{prediction.averageConfidence.toFixed(2)}</span>
+                </div>
+            )}
         </div>
     )
 }

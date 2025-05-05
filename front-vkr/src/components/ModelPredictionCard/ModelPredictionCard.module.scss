@@ -3,24 +3,55 @@
 .prediction {
     display: flex;
     flex-direction: column;
-    gap: 4px;
     padding: 30px;
-    background-color: var(--white);
+    background: linear-gradient(135deg, var(--white) 0%, var(--modelPredictionCardBackgroundColor) 100%);
+    border: 1px solid #e0e0e0;
     box-shadow: 0px 0px 10px 2px rgba(139, 139, 139, 0.2);
+    @include mixins.border-radius(6px);
+
+    &:nth-child(even) {
+        background: linear-gradient(135deg, var(--modelPredictionCardBackgroundColor) 0%, var(--white) 100%);
+    }
 
     &__item {
-        
+        margin-bottom: 10px;
+
+        &:first-child, &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     &__image {
-        width: 88%;
-        margin: 0 auto;
+        width: 100%;
+        margin: 16px auto;
+
+        img {
+            @include mixins.border-radius(4px);
+        }
+
     }
 
     .link {
         color: var(--linkColor);
+        text-decoration: none;
         font-weight: 600;
-    }
+        position: relative;
+    
+        &::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -2px;
+          left: 0;
+          background: var(--linkColor);
+          transition: width 0.3s ease;
+        }
+    
+        &:hover::after {
+          width: 100%;
+        }
+      }
 
     .bold {
         font-weight: 600;
