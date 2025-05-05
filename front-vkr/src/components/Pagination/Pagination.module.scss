@@ -1,0 +1,23 @@
+@use '../../mixins.scss';
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+
+    &__button {
+        width: 150px;
+        padding: 12px 0;
+        font-size: 14px;
+        color: var(--white);
+        background-color: var(--linkColor);
+        border: none;
+        @include mixins.border-radius(2px);
+
+        &--disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    }
+}
