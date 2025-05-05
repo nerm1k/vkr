@@ -20,8 +20,14 @@ export default class ModelPredictionController {
 
     getAllPublicModelPredictions = async (req: Request, res: Response) => {
         try {
-            const publicModelsPredictions = await this.modelPredictionService.getAllPublicModelsPredictions();
-            res.status(HttpStatusCode.OK).json(publicModelsPredictions);
+            if (req.query.page) {
+                const page = req.query.page;
+                const publicModelsPredictions = await this.modelPredictionService.getAllPublicModelsPredictionsByPage(+page);
+                res.status(HttpStatusCode.OK).json(publicModelsPredictions);
+            } else {
+                const publicModelsPredictions = await this.modelPredictionService.getAllPublicModelsPredictions();
+                res.status(HttpStatusCode.OK).json(publicModelsPredictions);
+            }
         } catch (error) {
             res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ error });
         }

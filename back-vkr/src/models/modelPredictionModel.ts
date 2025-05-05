@@ -50,6 +50,33 @@ export default class ModelPredictionModel {
         return publicModelPredictions;
     }
 
+    async getAllPublicModelsPredictionsByPage(offset: number) {
+        const publicModelPredictions: ModelPrediction[] = await pool('models_predictions')
+                                                                .select('model_prediction_id as modelPredictionId',
+                                                                    'models_predictions.model_id as modelId',
+                                                                    'models_predictions.user_id as userId',
+                                                                    'image_link as imageLink',
+                                                                    'confidence',
+                                                                    'overlap',
+                                                                    'average_confidence as averageConfidence',
+                                                                    'amount_full_containers as amountFullContainers',
+                                                                    'amount_not_full_containers as amountNotFullContainers',
+                                                                    'is_public as isPublic',
+                                                                    'models_predictions.created_at as createdAt',
+                                                                    'models_predictions.updated_at as updatedAt',
+                                                                    'username',
+                                                                    'models.name as model'
+                                                                )
+                                                                .where('is_public', '=', true)
+                                                                .leftJoin('users', 'models_predictions.user_id', 'users.user_id')
+                                                                .leftJoin('models', 'models_predictions.model_id', 'models.model_id')
+                                                                .orderBy('models_predictions.created_at', 'desc')
+                                                                .limit(10)
+                                                                .offset(offset);
+                                                                
+        return publicModelPredictions;
+    }
+
     async getAllModelsPredictionsByUsername(username: string) {
         const modelsPredictions: ModelPrediction[] = await pool('models_predictions')
                                                             .select('model_prediction_id as modelPredictionId',

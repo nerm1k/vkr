@@ -17,6 +17,12 @@ export default class ModelPredictionService {
         return publicModelsPredictions;
     }
 
+    async getAllPublicModelsPredictionsByPage(page: number) {
+        const offset = page * 10 - 10;
+        const publicModelsPredictions = await this.modelPredictionModel.getAllPublicModelsPredictionsByPage(offset);
+        return publicModelsPredictions;
+    }
+
     async getAllModelsPredictionsByUsername(username: string) {
         const modelsPredictions = await this.modelPredictionModel.getAllModelsPredictionsByUsername(username);
         return modelsPredictions;
