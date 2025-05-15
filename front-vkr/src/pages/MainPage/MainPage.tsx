@@ -144,34 +144,67 @@ const MainPage = () => {
 
                         detectImageRoboflowByUrl();
                     } else if (activeButton === 'file' && selectedFile) {
-                        async function detectImageRoboflowByFile() {
-                            setIsPredicting(true);
-                            const apiUrl = model?.url;
-                            if (apiUrl) {
-                                try {
-                                    const base64String = await fileToBase64(selectedFile as File);
-                                    const { data } = await axios(apiUrl, {
-                                        method: 'POST',
-                                        params: {
-                                            api_key: import.meta.env.VITE_ROBOFLOW_API_KEY,
-                                            confidence: sliderConfidenceValue,
-                                            overlap: sliderOverlapValue
-                                        },
-                                        headers: {
-                                            'Content-Type': 'application/x-www-form-urlencoded',
-                                        },
-                                        data: base64String,
-                                    });
-                                    setPredictions(data.predictions);
-                                    console.log(data.predictions);
-                                } catch (error) {
-                                    console.log(error);
+                        if (selectedModel == 1 || selectedModel == 2 || selectedModel == 3 || selectedModel == 4) {
+                            async function detectImageRoboflowByFile() {
+                                setIsPredicting(true);
+                                const apiUrl = model?.url;
+                                if (apiUrl) {
+                                    try {
+                                        const base64String = await fileToBase64(selectedFile as File);
+                                        const { data } = await axios(apiUrl, {
+                                            method: 'POST',
+                                            params: {
+                                                api_key: import.meta.env.VITE_ROBOFLOW_API_KEY,
+                                                confidence: sliderConfidenceValue,
+                                                overlap: sliderOverlapValue
+                                            },
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded',
+                                            },
+                                            data: base64String,
+                                        });
+                                        setPredictions(data.predictions);
+                                        console.log(data.predictions);
+                                    } catch (error) {
+                                        console.log(error);
+                                    }
                                 }
+                                setIsPredicting(false);
                             }
-                            setIsPredicting(false);
-                        }
-    
+        
                         detectImageRoboflowByFile();
+                        }
+
+                        if (selectedModel == 5) {
+                            async function detectImagePythonByFile() {
+                                setIsPredicting(true);
+                                const apiUrl = model?.url;
+                                if (apiUrl) {
+                                    try {
+                                        // const base64String = await fileToBase64(selectedFile as File);
+                                        const formData = new FormData();
+                                        formData.append('image', selectedFile as File);
+                                        const { data } = await axios(apiUrl, {
+                                            method: 'POST',
+                                            params: {
+                                                confidence: sliderConfidenceValue
+                                            },
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded',
+                                            },
+                                            data: formData,
+                                        });
+                                        setPredictions(data);
+                                        console.log(data);
+                                    } catch (error) {
+                                        console.log(error);
+                                    }
+                                }
+                                setIsPredicting(false);
+                            }
+        
+                            detectImagePythonByFile();
+                        }
                     }
                 } else {
                     console.log('нет model select');
@@ -227,10 +260,10 @@ const MainPage = () => {
                         {data && data.map(model => 
                             <option key={model.model_id} value={model.model_id}>{model.name}</option>
                         )}
-                        <option key={3} value={3}>...</option>
+                        <option key={999} value={999}>...</option>
                     </select>
                 </div>
-                {(selectedModel == 1 || selectedModel == 2) && (
+                {(selectedModel == 1 || selectedModel == 2 || selectedModel == 3 || selectedModel == 4 || selectedModel == 5) && (
                     <div className={styles.uploading__params}>
                         <div className={styles.params__item}>
                             <p className={styles.item__title}>Минимальная уверенность</p>

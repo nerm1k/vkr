@@ -126,10 +126,21 @@ const ImageWithPredictions = ({ imageSrc, selectedFile, predictions, modelId, is
                 }
 
               ctx.lineWidth = 5;
-              ctx.strokeRect(pred.x - pred.width / 2, pred.y - pred.height / 2, pred.width, pred.height);
-              // ctx.fillStyle = 'red';
-              // ctx.font = '24px Arial';
-              // ctx.fillText(`${pred.class} (${(pred.confidence * 100).toFixed(2)}%)`, pred.x - pred.width / 2, pred.y - pred.height / 2 - 10);
+              
+              if (pred.class_id === 0) {
+                ctx.fillStyle = 'red';         
+              } else {
+                ctx.fillStyle = 'green';
+              }
+
+              ctx.font = '24px Arial';
+              if (modelId == 1 || modelId == 2 || modelId == 3 || modelId == 4) {
+                ctx.strokeRect(pred.x - pred.width / 2, pred.y - pred.height / 2, pred.width, pred.height);
+                ctx.fillText(`${pred.class} (${(pred.confidence * 100).toFixed(2)}%)`, pred.x - pred.width / 2, pred.y - pred.height / 2 - 10);
+              } else {
+                ctx.strokeRect(pred.x, pred.y, pred.width, pred.height);
+                ctx.fillText(`${pred.class} (${(pred.confidence * 100).toFixed(2)}%)`, pred.x, pred.y - 10);
+              }
             });
   
             setIsCanvasReady(true);
