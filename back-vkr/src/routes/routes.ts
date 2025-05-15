@@ -2,6 +2,8 @@ import express, { Router } from "express";
 import ModelController from "../controllers/modelController";
 import ModelPredictionController from "../controllers/modelPredictionController";
 import UserController from "../controllers/userController";
+import { uploadImage } from "../multer";
+
 export const routes = (modelController: ModelController, modelPredictionController: ModelPredictionController, userController: UserController): Router => {
     const router = express.Router();
 
@@ -16,6 +18,8 @@ export const routes = (modelController: ModelController, modelPredictionControll
     router.get('/api/v1/users/:username/models-predictions', modelPredictionController.getAllModelsPredictionsByUsername);
     router.post('/api/v1/models-predictions', modelPredictionController.createModelPrediction);
     router.put('/api/v1/models-predictions/:modelPredictionId/public', modelPredictionController.publicModelPredictionById);
+
+    router.post('/api/v1/models-predictions/fasterrcnn', uploadImage, modelPredictionController.predictFasterRCNN);
 
 
     return router;

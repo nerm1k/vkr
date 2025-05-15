@@ -71,4 +71,23 @@ export default class ModelPredictionController {
             res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({error})
         }
     }
+
+    predictFasterRCNN = async (req: Request, res: Response) => {
+        try {
+            if (!req.file) {
+                res.status(HttpStatusCode.BAD_REQUEST).json({message: 'Bad Request'});
+                return;
+            }
+            const confidence = req.query.confidence ? Number(req.query.confidence) / 100 : 0.5;
+            const imagePath = req.file.path;
+            const prediction = await this.modelPredictionService.predictFasterRCNN(confidence.toString(), imagePath);
+            if (prediction == undefined) {
+                res.status(HttpStatusCode.BAD_REQUEST).json({message: 'Error'});
+            } else {
+                res.status(HttpStatusCode.OK).json(prediction);
+            }
+        } catch (error: any) {
+            res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({error})
+        }
+    }
 }

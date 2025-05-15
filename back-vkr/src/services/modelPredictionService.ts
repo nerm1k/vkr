@@ -1,4 +1,8 @@
 import ModelPredictionModel from "../models/modelPredictionModel";
+import { spawn } from "child_process";
+import { error } from "console";
+import fs from "fs";
+import path from "path";
 
 export default class ModelPredictionService {
     modelPredictionModel: ModelPredictionModel;
@@ -36,5 +40,39 @@ export default class ModelPredictionService {
     async publicModelPredictionById(modelPredictionId: number) {
         const isUpdated = await this.modelPredictionModel.publicModelPredictionById(modelPredictionId);
         return isUpdated;
+    }
+
+    async predictFasterRCNN(confidence: string, imagePath: string) {
+        const absoluteImagePath = path.resolve(imagePath);
+
+        return new Promise((resolve, reject) => {
+            const pythonProcess = spawn('../python/detectron2_env/Scripts/python.exe', ['../python/fasterRCNN.py', absoluteImagePath, confidence]);
+
+            let stdoutData = '';
+            let stderrData = '';
+
+            pythonProcess.stdout.on('data', (data) => stdoutData += data.toString());
+            pythonProcess.stderr.on('data', (data) => stderrData += data.toString());
+
+            pythonProcess.on('close', (code) => {
+                try {
+                    fs.unlinkSync(imagePath);
+
+                    if (code !== 0) {
+                        console.error(`Python process exited with code ${code}: ${stderrData}`);
+                        reject(error);
+                        return;
+                    } 
+
+                    const prediction = JSON.parse(stdoutData);
+                    resolve(prediction);
+                    
+                } catch (error) {
+                    console.error(`Error: ${error}`);
+                    reject(error);
+                }
+                
+            });
+        })
     }
 }
