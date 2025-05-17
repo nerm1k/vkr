@@ -72,7 +72,7 @@ export default class ModelPredictionController {
         }
     }
 
-    predictFasterRCNN = async (req: Request, res: Response) => {
+    predictInternalModel = async (req: Request, res: Response) => {
         try {
             if (!req.file) {
                 res.status(HttpStatusCode.BAD_REQUEST).json({message: 'Bad Request'});
@@ -80,7 +80,10 @@ export default class ModelPredictionController {
             }
             const confidence = req.query.confidence ? Number(req.query.confidence) / 100 : 0.5;
             const imagePath = req.file.path;
-            const prediction = await this.modelPredictionService.predictFasterRCNN(confidence.toString(), imagePath);
+
+            const modelName = req.path.split('/').pop();
+            const prediction = await this.modelPredictionService.predictInternalModel(modelName || 'fasterrcnn', confidence.toString(), imagePath);
+
             if (prediction == undefined) {
                 res.status(HttpStatusCode.BAD_REQUEST).json({message: 'Error'});
             } else {

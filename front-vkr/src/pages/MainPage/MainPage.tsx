@@ -175,7 +175,7 @@ const MainPage = () => {
                         detectImageRoboflowByFile();
                         }
 
-                        if (selectedModel == 5) {
+                        if (selectedModel == 5 || selectedModel == 6) {
                             async function detectImagePythonByFile() {
                                 setIsPredicting(true);
                                 const apiUrl = model?.url;
@@ -263,18 +263,20 @@ const MainPage = () => {
                         <option key={999} value={999}>...</option>
                     </select>
                 </div>
-                {(selectedModel == 1 || selectedModel == 2 || selectedModel == 3 || selectedModel == 4 || selectedModel == 5) && (
-                    <div className={styles.uploading__params}>
-                        <div className={styles.params__item}>
-                            <p className={styles.item__title}>Минимальная уверенность</p>
-                            <ParamsSlider defaultValue={70} onChangeInput={handleInputConfidenceChange} value={sliderConfidenceValue} onChangeSlider={handleSliderConfidenceChange}/>
-                        </div>
+                <div className={styles.uploading__params}>
+                    <div className={styles.params__item}>
+                        <p className={styles.item__title}>Минимальная уверенность</p>
+                        <ParamsSlider defaultValue={70} onChangeInput={handleInputConfidenceChange} value={sliderConfidenceValue} onChangeSlider={handleSliderConfidenceChange}/>
+                    </div>
+                    {(selectedModel == 5 || selectedModel == 6) ? (
+                        <></>
+                    ) : (
                         <div className={styles.params__item}>
                             <p className={styles.item__title}>Максимальное перекрытие</p>
                             <ParamsSlider defaultValue={30} onChangeInput={handleInputOverlapChange} value={sliderOverlapValue} onChangeSlider={handleSliderOverlapChange}/>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
                 {predictions ? <></> : (
                     <div className={styles.uploading__image}>
                     {imageSrc ? (

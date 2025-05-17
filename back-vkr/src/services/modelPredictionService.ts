@@ -42,37 +42,48 @@ export default class ModelPredictionService {
         return isUpdated;
     }
 
-    async predictFasterRCNN(confidence: string, imagePath: string) {
+    async predictInternalModel(modelName: string, confidence: string, imagePath: string) {
+        console.log(modelName);
         const absoluteImagePath = path.resolve(imagePath);
 
         return new Promise((resolve, reject) => {
-            const pythonProcess = spawn('../python/detectron2_env/Scripts/python.exe', ['../python/fasterRCNN.py', absoluteImagePath, confidence]);
+            let pythonProcess;
+            if (modelName == 'fasterrcnn') {
+                pythonProcess = spawn('../python/detectron2_env/Scripts/python.exe', ['../python/fasterRCNN.py', absoluteImagePath, confidence]);
+            } else if (modelName == 'retinanet') {
+                pythonProcess = spawn('../python/detectron2_env/Scripts/python.exe', ['../python/retinanet.py', absoluteImagePath, confidence]);
+            }
 
-            let stdoutData = '';
-            let stderrData = '';
+            if (pythonProcess) { 
+                let stdoutData = '';
+                let stderrData = '';
 
-            pythonProcess.stdout.on('data', (data) => stdoutData += data.toString());
-            pythonProcess.stderr.on('data', (data) => stderrData += data.toString());
+                pythonProcess.stdout.on('data', (data) => stdoutData += data.toString());
+                pythonProcess.stderr.on('data', (data) => stderrData += data.toString());
 
-            pythonProcess.on('close', (code) => {
-                try {
-                    fs.unlinkSync(imagePath);
+                pythonProcess.on('close', (code) => {
+                    try {
+                        fs.unlinkSync(imagePath);
 
-                    if (code !== 0) {
-                        console.error(`Python process exited with code ${code}: ${stderrData}`);
+                        if (code !== 0) {
+                            console.error(`Python process exited with code ${code}: ${stderrData}`);
+                            reject(error);
+                            return;
+                        } 
+
+                        const prediction = JSON.parse(stdoutData);
+                        resolve(prediction);
+                        
+                    } catch (error) {
+                        console.error(`Error: ${error}`);
                         reject(error);
-                        return;
-                    } 
-
-                    const prediction = JSON.parse(stdoutData);
-                    resolve(prediction);
+                    }
                     
-                } catch (error) {
-                    console.error(`Error: ${error}`);
-                    reject(error);
-                }
-                
-            });
+                });
+            } else {
+                return;
+            }
+            
         })
     }
 }

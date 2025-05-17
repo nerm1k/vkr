@@ -9,6 +9,7 @@ interface Props {
 
 const PublishThePrediction = ({modelPredictionId}: Props) => {
     const [isPublic, setIsPublic] = useState<boolean>(false);
+    const [isError, setIsError] = useState(false);
 
     const shareThePrediction =  () => {
         if (!isPublic) {
@@ -19,12 +20,19 @@ const PublishThePrediction = ({modelPredictionId}: Props) => {
                         setIsPublic(true);
                     }
                 } catch (error) {
+                    setIsError(true);
                     console.log('error publish', error);
                 }
             }
     
             publish();
         }
+    }
+
+    if (isError) {
+        return (
+            <p className={styles.error}>Невозможно опубликовать в данный момоент.</p>
+        )
     }
 
     return (
