@@ -93,13 +93,64 @@
                 margin-bottom: 8px;
             }
 
-            .model__select {
-                width: 400px;
-                padding: 8px 5px;
-                font-size: 16px;
-                color: var(--color90);
-                border: 1px solid var(--mainPageMethodButtonBorderColor);
-                @include mixins.border-radius(4px);
+            div {
+                display: flex;
+                align-items: center;
+
+                .model__select {
+                    width: 400px;
+                    padding: 8px 5px;
+                    font-size: 16px;
+                    color: var(--color90);
+                    border: 1px solid var(--mainPageMethodButtonBorderColor);
+                    @include mixins.border-radius(4px);
+                }
+
+                .info__wrapper {
+                    position: relative;
+                    margin-left: 10px;
+
+                    .info__icon {
+                        font-size: 24px;
+                        color: var(--color);
+                        @include mixins.transition(color, 0.2s);
+
+                        &:hover {
+                            color: var(--mainPageMethodButtonBackgroundColorActiveHover);
+                        }
+                    }
+
+                    .info__text {
+                        visibility: hidden;
+                        position: absolute;
+                        top: -30%; 
+                        left: 100%;
+                        @include mixins.transform(translateX(5%));
+                        min-width: 200px;
+                        padding: 8px 12px;
+                        background: var(--color);
+                        color: var(--white);
+                        font-size: 14px;
+                        @include mixins.border-radius(4px);
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+                        z-index: 10;
+                        text-align: center;
+                        opacity: 0;
+                        @include mixins.transition(opacity, 0.2s);
+                    }
+
+                    &:hover {
+                        .info__text {
+                            visibility: visible;
+                            opacity: 1;
+                        }
+                    }
+                }
+
+            }
+
+            .model__description {
+                display: none;
             }
         }
 

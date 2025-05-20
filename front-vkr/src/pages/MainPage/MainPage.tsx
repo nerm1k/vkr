@@ -8,6 +8,9 @@ import axios from 'axios';
 import ImageWithPredictions from '../../components/ImageWithPredictions/ImageWithPredictions';
 import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 import { CircularProgress, LinearProgress } from '@mui/material';
+import { IoIosInformationCircleOutline } from "react-icons/io";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+
 
 interface Model {
     model_id: number,
@@ -55,7 +58,7 @@ const MainPage = () => {
 
     console.log(data);
 
-
+    const selectedDescription = data.find(model => model.model_id === selectedModel)?.description;
     // const {mutate, data, error, isPending} = useMutation<DetectImageResponse, Error, MutationInput>({
     //     mutationFn: detectImageRoboflowByUrl,
     // });
@@ -256,12 +259,21 @@ const MainPage = () => {
                 </div>
                 <div className={styles.uploading__model}>
                     <p className={styles.model__title}>Модель</p>
-                    <select className={styles.model__select} value={selectedModel} onChange={handleModelChange}>
-                        {data && data.map(model => 
-                            <option key={model.model_id} value={model.model_id}>{model.name}</option>
-                        )}
-                        <option key={999} value={999}>...</option>
-                    </select>
+                    <div>
+                        <select className={styles.model__select} value={selectedModel} onChange={handleModelChange}>
+                            {data && data.map(model => 
+                                model.model_id != 2 && 
+                                <option key={model.model_id} value={model.model_id}>{model.name}</option>
+                            )}
+                            {/* <option key={999} value={999}>...</option> */}
+                        </select>
+                        <div className={styles.info__wrapper}>
+                            <AiOutlineInfoCircle className={styles.info__icon} />
+                            <div className={styles.info__text}>
+                                {selectedDescription}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className={styles.uploading__params}>
                     <div className={styles.params__item}>
