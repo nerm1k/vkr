@@ -23,6 +23,7 @@ const UserPage = () => {
                 Публикации пользователя <span className={styles.bold}>{username}</span>
             </div>
             <div className={styles.container}>
+                {data.length < 1 && <div className={styles.empty}>Пусто...</div>}
                 {data.map(pred => (
                     <ModelPredictionCard key={pred.modelPredictionId} prediction={pred} hasLink={false}/>
                 ))}

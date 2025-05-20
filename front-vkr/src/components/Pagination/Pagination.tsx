@@ -11,10 +11,10 @@ const Pagination = ({onClick, currentPage, isDisabled}: Props) => {
     return (
         <div className={styles.pagination}>
             <Link to={`/feed?page=${currentPage - 1}`}>
-                <button className={`${styles.pagination__button} ${currentPage == 1 && styles['pagination__button--disabled']}`} onClick={() => onClick('previous')}>Назад</button>
+                <button className={`${styles.pagination__button} ${currentPage == 1 && styles['pagination__button--disabled']}`} onClick={() => onClick('previous')}>Вперед</button>
             </Link>
             <Link to={`/feed?page=${currentPage + 1}`}>
-                <button className={`${styles.pagination__button} ${isDisabled && styles['pagination__button--disabled']}`} onClick={() => onClick('next')}>Вперед</button>
+                <button className={`${styles.pagination__button} ${isDisabled && styles['pagination__button--disabled']}`} onClick={() => onClick('next')}>Назад</button>
             </Link>
         </div>
     )

@@ -118,6 +118,11 @@
             background-color: var(--loginColorMain);
             border: none;
             @include mixins.border-radius(3px);
+            @include mixins.transition(background-color, 0.2s);
+
+            &:hover {
+                background-color: var(--loginColorMainHover);
+            }
         }
     }
 }
