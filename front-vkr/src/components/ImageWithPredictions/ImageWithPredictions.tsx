@@ -38,8 +38,8 @@ const ImageWithPredictions = ({ imageSrc, selectedFile, predictions, modelId, is
     const [imgurLink, setImgurLink] = useState<string | null>(null);
     const [modelPredictionResponse, setModelPredictionResponse] = useState<ModelPredictionResponse>();
 
-    const containersWithTrash = predictions.filter((pred) => pred.class_id === 0);
-    const containersWithoutTrash = predictions.filter((pred) => pred.class_id === 1);
+    const containersWithTrash = predictions.filter((pred) => pred.class === 'full_container');
+    const containersWithoutTrash = predictions.filter((pred) => pred.class === 'not_full_container');
     const averageConfidence = predictions.reduce((acc, pred) => acc + pred.confidence, 0) / predictions.length;
 
     const { mutate } = useMutation({
@@ -118,28 +118,24 @@ const ImageWithPredictions = ({ imageSrc, selectedFile, predictions, modelId, is
             ctx.drawImage(img, 0, 0);
   
             predictions.forEach((pred) => {
-                if (pred.class_id === 0) {
-                    ctx.strokeStyle = '#ff0000';
-                    
+              ctx.lineWidth = 5;
+              ctx.font = '24px Arial';
+
+              if (pred.class == 'full_container') {
+                  ctx.fillStyle = 'red';  
+                  ctx.strokeStyle = 'red';
                 } else {
-                    ctx.strokeStyle = '#009e0d';
+                  ctx.fillStyle = 'green';
+                  ctx.strokeStyle = 'green';
                 }
 
-              ctx.lineWidth = 5;
-              
-              if (pred.class_id === 0) {
-                ctx.fillStyle = 'red';         
-              } else {
-                ctx.fillStyle = 'green';
-              }
-
-              ctx.font = '24px Arial';
               if (modelId == 1 || modelId == 2 || modelId == 3 || modelId == 4) {
                 ctx.strokeRect(pred.x - pred.width / 2, pred.y - pred.height / 2, pred.width, pred.height);
-                ctx.fillText(`${pred.class} (${(pred.confidence * 100).toFixed(2)}%)`, pred.x - pred.width / 2, pred.y - pred.height / 2 - 10);
+                ctx.fillText(`${(pred.confidence * 100).toFixed(2)}%`, pred.x - pred.width / 2, pred.y - pred.height / 2 - 10);
+
               } else {
                 ctx.strokeRect(pred.x, pred.y, pred.width, pred.height);
-                ctx.fillText(`${pred.class} (${(pred.confidence * 100).toFixed(2)}%)`, pred.x, pred.y - 10);
+                ctx.fillText(`${(pred.confidence * 100).toFixed(2)}%`, pred.x, pred.y - 10);
               }
             });
   

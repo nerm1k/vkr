@@ -37,8 +37,8 @@ export default class ModelPredictionService {
         return modelPrediction;
     }
 
-    async publicModelPredictionById(modelPredictionId: number) {
-        const isUpdated = await this.modelPredictionModel.publicModelPredictionById(modelPredictionId);
+    async publishModelPredictionById(modelPredictionId: number) {
+        const isUpdated = await this.modelPredictionModel.publishModelPredictionById(modelPredictionId);
         return isUpdated;
     }
 

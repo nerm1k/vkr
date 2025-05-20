@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 import useIsAuthenticated from '../../hooks/useIsAuthenticated';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { setCurrentPage } from '../../store/currentPageSlice';
 
 const Header = () => {
     const { isAuthenticated, authenticatedUser } = useIsAuthenticated();
+    const dispatch = useAppDispatch();
     
     return (
         <header className={styles.header}>
@@ -16,7 +19,7 @@ const Header = () => {
                 <nav className={styles.header__nav}>
                     <ul>
                         <li>
-                            <Link to='/feed'>
+                            <Link to='/feed' onClick={() => dispatch(setCurrentPage(1))}>
                                 Все публикации
                             </Link>
                         </li>

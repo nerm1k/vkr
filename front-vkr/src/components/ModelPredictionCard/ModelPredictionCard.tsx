@@ -40,11 +40,14 @@ const ModelPredictionCard = ({prediction, hasLink}: Props) => {
                     Уверенность: <span className={styles.bold}>{prediction.confidence}</span>
                 </div>
             )}
-            {typeof prediction.overlap  === 'number'&& (
+            {(prediction.modelId != 6 && prediction.modelId != 5) && 
+                (typeof prediction.overlap  === 'number'&& (
                 <div className={styles.prediction__item}>
                     Перекрытие: <span className={styles.bold}>{prediction.overlap}</span>
                 </div>
+                )
             )}
+
             {typeof prediction.amountFullContainers === 'number' && (
                 <div className={styles.prediction__item}>
                     Полных контейнеров: <span className={styles.bold}>{prediction.amountFullContainers}</span>

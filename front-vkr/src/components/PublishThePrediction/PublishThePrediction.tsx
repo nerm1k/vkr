@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonInput from "../ButtonInput/ButtonInput";
 import axios from "axios";
 import styles from './PublishThePrediction.module.scss';
@@ -10,6 +10,15 @@ interface Props {
 const PublishThePrediction = ({modelPredictionId}: Props) => {
     const [isPublic, setIsPublic] = useState<boolean>(false);
     const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        if (isError) {
+            const timer = setTimeout(() => {
+                setIsError(false);
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [isError]);
 
     const shareThePrediction =  () => {
         if (!isPublic) {
@@ -31,7 +40,7 @@ const PublishThePrediction = ({modelPredictionId}: Props) => {
 
     if (isError) {
         return (
-            <p className={styles.error}>Невозможно опубликовать в данный момоент.</p>
+            <p className={styles.error}>Невозможно опубликовать в данный момент.</p>
         )
     }
 

@@ -30,7 +30,7 @@
 
     &__rate {
         display: flex;
-        align-items: end;
-        gap: 10px;
+        flex-direction: column;
+        gap: 16px;
     }
 }

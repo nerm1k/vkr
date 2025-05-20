@@ -119,7 +119,7 @@ export default class ModelPredictionModel {
         return modelPrediction[0];
     }
 
-    async publicModelPredictionById(modelPredictionId: number) {
+    async publishModelPredictionById(modelPredictionId: number) {
         await pool('models_predictions')
             .where('model_prediction_id', '=', modelPredictionId)
             .update({ is_public: true })

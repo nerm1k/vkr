@@ -57,11 +57,11 @@ export default class ModelPredictionController {
         }
     }
 
-    publicModelPredictionById = async (req: Request, res: Response) => {
+    publishModelPredictionById = async (req: Request, res: Response) => {
         try {
             const modelPredictionId  = req.params.modelPredictionId;
             console.log(modelPredictionId)
-            const isUpdated = await this.modelPredictionService.publicModelPredictionById(+modelPredictionId);
+            const isUpdated = await this.modelPredictionService.publishModelPredictionById(+modelPredictionId);
             if (isUpdated) {
                 res.status(HttpStatusCode.NO_CONTENT).json({message: '+'});
             } else {

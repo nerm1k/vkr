@@ -88,10 +88,10 @@ const LoginPage = () => {
                 <div className={styles.login__password}>
                     <InputLogin type="password" name="password" id="password" placeholder='Пароль' icon={<RiLockPasswordFill />} onChange={handleChange} value={loginInfo.password}/>
                 </div>
-                <div className={styles.login__remember}>
+                {/* <div className={styles.login__remember}>
                     <input type="checkbox" name="remember" id="remember" />
                     <label htmlFor="remember">Запомнить меня</label>
-                </div>
+                </div> */}
                 <button className={styles.login__button} type="submit">
                     Войти
                 </button>

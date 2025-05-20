@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: -webkit-linear-gradient(bottom, #0250c5, #d43f8d);
+    background: -webkit-linear-gradient(bottom, var(--loginBackgroundColor2), var(--loginBackgroundColor1));
 
     &::before {
         content: "";

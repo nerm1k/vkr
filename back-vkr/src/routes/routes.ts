@@ -17,7 +17,7 @@ export const routes = (modelController: ModelController, modelPredictionControll
     router.get('/api/v1/models-predictions', modelPredictionController.getAllPublicModelPredictions);
     router.get('/api/v1/users/:username/models-predictions', modelPredictionController.getAllModelsPredictionsByUsername);
     router.post('/api/v1/models-predictions', modelPredictionController.createModelPrediction);
-    router.put('/api/v1/models-predictions/:modelPredictionId/public', modelPredictionController.publicModelPredictionById);
+    router.put('/api/v1/models-predictions/:modelPredictionId/public', modelPredictionController.publishModelPredictionById);
 
     router.post('/api/v1/models-predictions/fasterrcnn', uploadImage, modelPredictionController.predictInternalModel);
     router.post('/api/v1/models-predictions/retinanet', uploadImage, modelPredictionController.predictInternalModel);
